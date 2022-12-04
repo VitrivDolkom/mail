@@ -1,15 +1,16 @@
-import { useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const General = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        navigate("/in");
+    }, []);
 
     return (
-        <div className="general page">
-            {/* 
-            <button onClick={() => setCount(prev => prev + 1)}>Increase count</button>
-            <div className='count'>{count}</div>
-            <button onClick={() => setCount(prev => prev - 1)}>Decriase count</button> */}
+        <div className="general">
+
         </div>
     );
 }

@@ -11,6 +11,11 @@
     "sidebar content";
 }
 
+body *:hover {
+  cursor: url("../img/cursor.svg");
+}
+
+
 .content {
   grid-area: content;
 }

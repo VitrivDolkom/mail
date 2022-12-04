@@ -4,7 +4,7 @@ import lightIcon from "../../img/theme.svg";
 import darkAdd from "../../img/dark/add.svg";
 import lightAdd from "../../img/add.svg";
 import ListPages from "../ListPages/ListPages";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ThemeContext from "../../context/Theme";
 
 
@@ -15,23 +15,15 @@ const Sidebar = () => {
     const { theme, setTheme } = useContext(ThemeContext);
 
     const changeTheme = () => {
-        setTheme(prev => !prev);
 
-        document.body.classList.toggle("darkTheme");
-        const themeBtn = document.querySelector("#theme");
-        const addFolder = document.querySelector("#addFolder");
-        const themeSpan = document.querySelector("#themeName");
-
-        if (document.body.classList.contains("darkTheme")) {
-            themeBtn.src = darkIcon;
-            addFolder.src = darkAdd;
-            themeSpan.innerHTML = 'Тема: тёмная';
+        if (theme === "light") {
+            setTheme("dark");
+            localStorage.setItem("theme", "dark");
         } else {
-            themeBtn.src = lightIcon;
-            addFolder.src = lightAdd;
-            themeSpan.innerHTML = 'Тема: светлая';
-
+            setTheme("light");
+            localStorage.setItem("theme", "light");
         }
+        document.body.classList.toggle("darkTheme");
     }
 
     return (
@@ -43,17 +35,23 @@ const Sidebar = () => {
                 <ListPages />
                 <hr />
                 <div className="addFolder">
-                    <img id="addFolder" src={lightAdd} alt="" />
+                    {theme === "light" ? <img id="addFolder" src={lightAdd} alt="" /> : <img id="addFolder" src={darkAdd} alt="" />}
                     <span>Новая папка</span>
                 </div>
             </div>
             <div className="bottom" onClick={() => changeTheme()}>
-                <img
+
+                {theme === "light" ? <img
                     id="theme"
                     src={lightIcon}
                     alt=""
-                />
-                <span id="themeName">Тема: Светлая</span>
+                /> : <img
+                    id="theme"
+                    src={darkIcon}
+                    alt=""
+                />}
+
+                <span id="themeName">{theme === "light" ? "Тема: светлая" : "Тема: тёмная"}</span>
             </div>
         </div>
     );

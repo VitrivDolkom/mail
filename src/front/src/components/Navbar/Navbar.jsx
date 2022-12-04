@@ -11,7 +11,7 @@ const Navbar = () => {
     const { theme } = useContext(ThemeContext);
     return (
         <nav className="navbar">
-            {theme ?
+            {theme === "light" ?
                 <>
                     <img className="logo" src={dog} alt="" />
                     <img className="mail" src={mail} alt="" />
@@ -23,7 +23,7 @@ const Navbar = () => {
                 </>}
 
 
-        </nav>
+        </nav >
     );
 }
 
