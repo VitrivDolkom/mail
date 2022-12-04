@@ -1,0 +1,13 @@
+.navbar {
+  grid-area: navbar;
+  height: 56px;
+  background-color: var(--back);
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.mail {
+  margin-left: 10px;
+}

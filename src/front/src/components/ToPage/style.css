@@ -1,0 +1,19 @@
+.linkToPage {
+  background-color: var(--side-back);
+  width: 200px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  padding: 0px 14px;
+  border-radius: 8px;
+}
+
+.linkToPage:hover {
+  background-color: var(--side-back);
+}
+
+.linkToPage span {
+  margin-left: 10px;
+  color: var(--side-text);
+}

@@ -1,0 +1,33 @@
+:root {
+  --text: #2C2D2E;
+  --back: #FFFFFF;
+  --side-text: #333333;
+  --side-folder: #989999;
+  --side-back: rgba(0, 16, 61, 0.08);
+  --but-bor: rgba(0, 16, 61, 0.12);
+  --back-app: #F6F7F8;
+
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.darkTheme {
+  --text: #E7E8EA;
+  --back: #232324;
+  --but-bor: rgba(0, 0, 0, 0.4);
+  --back-app: #19191A;
+  --side-text: #E7E8EA;
+  --side-back: rgba(255, 255, 255, 0.08);
+  --side-folder: #7C7C7E;
+
+}

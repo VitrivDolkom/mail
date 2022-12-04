@@ -1,0 +1,20 @@
+.App {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 1.7fr 10fr;
+  row-gap: 13px;
+  background-color: var(--back-app);
+
+  grid-template-areas:
+    "navbar navbar"
+    "sidebar content";
+}
+
+.content {
+  grid-area: content;
+}
+
+.count {
+  color: var(--text);
+}
