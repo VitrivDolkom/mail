@@ -6,6 +6,8 @@
   --side-back: rgba(0, 16, 61, 0.08);
   --but-bor: rgba(0, 16, 61, 0.12);
   --back-app: #F6F7F8;
+  --brief-bold: #2C2D2E;
+  --brief-thin: #87898F;
 
   font-family: Arial, sans-serif;
   font-size: 16px;
@@ -29,5 +31,6 @@
   --side-text: #E7E8EA;
   --side-back: rgba(255, 255, 255, 0.08);
   --side-folder: #7C7C7E;
-
+  --brief-bold: #E7E8EA;
+  --brief-thin: #8C8E94;
 }
