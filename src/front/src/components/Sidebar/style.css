@@ -1,5 +1,4 @@
 .bottom {
-  width: 40px;
   cursor: pointer;
 }
 
@@ -16,17 +15,17 @@
 }
 
 .sidebar span {
-  margin-left: 10px;
+  padding: 0px 12px;
 }
 
 .addFolder {
-  width: 200px;
+  width: 100%;
   height: 36px;
   display: flex;
   align-items: center;
   background-color: transparent;
+  margin-top: 18px;
   padding: 0px 14px;
-  margin-top: 8px;
   cursor: pointer;
 }
 
@@ -34,31 +33,38 @@
   color: var(--side-folder);
 }
 
-.top {
+.sidebar .top {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 
-  width: 200px;
+  width: 100%;
   height: 36px;
   background: #FFFFFF;
   border: 1px solid var(--but-bor);
   border-radius: 8px;
 }
 
-.top a {
+.sidebar .top span {
   color: #333333;
   font-weight: 700;
   font-size: 15px;
 }
 
-.mid {
+.sidebar .top img {
+  display: none;
+}
+
+
+
+
+.sidebar .mid {
   flex: 1 1 auto;
   margin-top: 12px;
 }
 
-.mid hr {
+.sidebar .mid hr {
   margin-top: 8px;
   width: 100%;
   height: 2px;
@@ -66,8 +72,42 @@
 }
 
 .bottom {
-  width: 100%;
   display: flex;
   align-items: center;
 
+}
+
+.bottom span {
+  white-space: nowrap;
+}
+
+@media screen and (max-width:1000px) {
+
+  .sidebar {
+    padding: 0px 18px 20px 9px;
+  }
+
+  .bottom {
+    justify-content: center;
+  }
+
+  .bottom span {
+    display: none;
+  }
+
+  .sidebar .top span {
+    display: none;
+  }
+
+  .sidebar .top img {
+    display: block;
+  }
+
+  .addFolder {
+    display: none;
+  }
+
+  .mid hr {
+    display: none;
+  }
 }

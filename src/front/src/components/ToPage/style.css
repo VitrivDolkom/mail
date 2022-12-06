@@ -1,6 +1,6 @@
 .linkToPage {
   background-color: var(--side-back);
-  width: 200px;
+  width: 100%;
   height: 36px;
   display: flex;
   align-items: center;
@@ -9,11 +9,29 @@
   border-radius: 8px;
 }
 
-.linkToPage:hover {
+
+.linkToPage:hover,
+.currentPage {
   background-color: var(--side-back);
 }
 
 .linkToPage span {
+  display: block;
   margin-left: 10px;
   color: var(--side-text);
+
+}
+
+
+
+@media screen and (max-width: 1000px) {
+
+  .linkToPage {
+    padding: 0;
+    justify-content: center;
+  }
+
+  .linkToPage span {
+    display: none;
+  }
 }

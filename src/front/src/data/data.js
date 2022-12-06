@@ -28,8 +28,7 @@ let state = {
             { title: 'Спам', img: spam, imgDark: spamD, to: "spam" },
             { title: 'Корзина', img: trash, imgDark: trashD, to: "trash" }
         ]
-    }
-
+    },
 
 }
 

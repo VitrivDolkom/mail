@@ -1,8 +1,8 @@
 .App {
   height: 100vh;
   display: grid;
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 1.7fr 10fr;
+  grid-template-rows: 56px 1fr;
+  grid-template-columns: 232px 1fr;
   row-gap: 13px;
   background-color: var(--back-app);
 
@@ -22,4 +22,11 @@ body *:hover {
 
 .count {
   color: var(--text);
+}
+
+@media screen and (max-width:1000px) {
+  .App {
+
+    grid-template-columns: 65px 1fr;
+  }
 }

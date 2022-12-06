@@ -5,16 +5,19 @@ import './styles/index.css';
 import state from './data/data.js';
 import { createContext } from 'react';
 import { ThemeProvider } from './context/Theme';
+import { MessagesProvider } from './context/MessagesContext';
 
 export const StateContext = createContext(null);
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <ThemeProvider>
-            <StateContext.Provider value={{ state }} >
-                <App />
-            </StateContext.Provider>
-        </ThemeProvider>
+        <MessagesProvider>
+            <ThemeProvider>
+                <StateContext.Provider value={{ state }} >
+                    <App />
+                </StateContext.Provider>
+            </ThemeProvider>
+        </MessagesProvider>
     </React.StrictMode>
 )

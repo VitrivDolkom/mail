@@ -13,6 +13,7 @@ import Archive from './pages/Archive/Archive';
 import Spam from './pages/Spam/Spam';
 import Trash from './pages/Trash/Trash';
 import cursor from "./img/cursor.svg";
+import Letter from './pages/Letter/Letter';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
                         <Route path='/arc' element={<Archive />} />
                         <Route path='/spam' element={<Spam />} />
                         <Route path='/trash' element={<Trash />} />
+                        <Route path='/letter' element={<Letter />} />
                     </Routes>
                 </div>
             </BrowserRouter>

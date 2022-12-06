@@ -3,12 +3,16 @@ import "./style.css";
 
 
 
-const ToPage = ({ title, imageSrc, link }) => {
+const ToPage = ({ title, imageSrc, link, currentPage, changePage }) => {
     return (
         <Link to={link}>
-            <li className="linkToPage">
+            <li className={currentPage === title ? "linkToPage currentPage" : "linkToPage"}
+
+                onClick={() => changePage(title)}
+            >
                 <img src={imageSrc} alt="" />
                 <span>{title}</span>
+
             </li>
         </Link>
     );

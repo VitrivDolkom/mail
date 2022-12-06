@@ -6,7 +6,7 @@ import lightAdd from "../../img/add.svg";
 import ListPages from "../ListPages/ListPages";
 import { useContext, useEffect } from "react";
 import ThemeContext from "../../context/Theme";
-
+import writeLetter from "../../img/write.svg";
 
 
 
@@ -29,7 +29,8 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <div className="top">
-                <a href="#">Написать письмо</a>
+                <img src={writeLetter} alt="Написать новое письмо" />
+                <span href="#">Написать письмо</span>
             </div>
             <div className="mid">
                 <ListPages />

@@ -5,20 +5,83 @@
   height: 48px;
   display: flex;
   align-items: center;
+  padding: 0px 11px;
+  margin-right: 12px;
+}
+
+.brief .left {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex: 0 0 300px;
+}
+
+.brief .t2 {
+  flex: 1 1 auto;
+}
+
+.brief .right {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  margin-left: 30px;
 }
 
 .brief:hover {
   background-color: var(--side-back);
 }
 
-.brief h3 {
+.brief .t1 {
+  flex: 0 0 auto;
+  margin-left: 13px;
   font-weight: 700;
   font-size: 15px;
   color: var(--brief-bold);
 }
 
-.brief h4 {
+.brief .t2 {
+  width: 100px;
+  flex: 0 1 1700px;
+  overflow: hidden;
   font-weight: 400;
   font-size: 15px;
   color: var(--brief-thin);
+  margin-left: 8px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.brief .name {
+  margin-left: 13px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--brief-bold);
+}
+
+.name.readed {
+  font-weight: 400;
+}
+
+.t1.readed {
+  font-weight: 400;
+}
+
+
+.ava {
+  margin-left: 11px;
+  position: relative;
+}
+
+.ava .dot {
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.ava img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
 }
