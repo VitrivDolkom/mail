@@ -1,13 +1,13 @@
 .letter {
   background-color: var(--back);
-  padding: 16px 32px;
+  padding: 16px 32px 32px 32px;
   display: flex;
   flex-direction: column;
   border-radius: 12px;
   margin-right: 12px;
 }
 
-.letter .b1 {
+.letter .top {
   display: flex;
   justify-content: space-between;
 }
@@ -28,6 +28,10 @@
   color: var(--brief-thin);
 }
 
+.whom a {
+  text-decoration: underline;
+}
+
 .letter .ava {
   margin-left: 0;
 }
@@ -36,6 +40,40 @@
   color: var(--brief-thin);
 }
 
-.letter .t1 {
+.letter .person {
   color: var(--brief-bold);
+}
+
+
+.letter .content {
+  margin-top: 28px;
+  color: var(--brief-bold);
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.letter .info {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.letter .info .left {}
+
+.letter .info .right {
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.letter .info .who {
+  display: flex;
+}
+
+.letter .info .date {
+  margin-left: 8px;
+}
+
+.letter .info .whom {
+  margin-top: 8px;
 }

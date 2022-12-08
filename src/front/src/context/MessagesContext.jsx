@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react"
-import { getFromLocalStorage } from "../helpers/func";
+import { getFromLocalStorage, sortMessages } from "../helpers/func";
 
 
 const MessagesContext = createContext();
@@ -19,6 +19,7 @@ export const MessagesProvider = ({ children }) => {
         fetch("http://localhost:3000/getm")
             .then(raw => raw.json())
             .then(messages => {
+                sortMessages(messages);
 
                 setAllMessages(messages);
                 let archiveMess = [];
@@ -47,6 +48,8 @@ export const MessagesProvider = ({ children }) => {
 
                 });
 
+
+                // setIncoming();
                 setArchive(archiveMess);
                 setSpam(spamMess);
                 setOutcoming(outcomingMess);
@@ -60,8 +63,8 @@ export const MessagesProvider = ({ children }) => {
     return (
         <MessagesContext.Provider value={
             {
-                allMessages, setAllMessages, archive,
-                setArchive, archive, setArchive, spam,
+                allMessages, setAllMessages, spam,
+                setArchive, archive,
                 setSpam, outcoming, setOutcoming,
                 incoming, setIncoming, important,
                 setImportant, trash, setTrash,

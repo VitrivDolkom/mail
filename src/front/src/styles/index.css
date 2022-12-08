@@ -10,13 +10,12 @@
   --brief-thin: #87898F;
   --brief-dot: #A5A7AD;
   --brief-blue: #005FF9;
-
+  background-color: var(--back-app);
 
   font-family: Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-
 
 
   font-synthesis: none;

@@ -7,6 +7,11 @@
 }
 
 .sidebar {
+  overflow: auto;
+  width: 232px;
+  position: fixed;
+  top: 69px;
+  bottom: 0;
   grid-area: sidebar;
   padding: 0px 16px;
   padding-bottom: 20px;
@@ -40,7 +45,7 @@
   align-items: center;
 
   width: 100%;
-  height: 36px;
+  min-height: 36px;
   background: #FFFFFF;
   border: 1px solid var(--but-bor);
   border-radius: 8px;
@@ -56,9 +61,6 @@
   display: none;
 }
 
-
-
-
 .sidebar .mid {
   flex: 1 1 auto;
   margin-top: 12px;
@@ -71,10 +73,10 @@
   background-color: var(--but-bor);
 }
 
-.bottom {
+.sidebar .bottom {
   display: flex;
   align-items: center;
-
+  margin-top: 15px;
 }
 
 .bottom span {
@@ -84,6 +86,7 @@
 @media screen and (max-width:1000px) {
 
   .sidebar {
+    width: 70px;
     padding: 0px 18px 20px 9px;
   }
 

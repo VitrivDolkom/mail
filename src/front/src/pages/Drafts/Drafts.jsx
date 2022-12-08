@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import Preloader from "../../atom/Preloader/Preloader";
 import BriefMessage from "../../components/BriefMessage/BriefMessage";
 import MessagesContext from "../../context/MessagesContext";
 
@@ -8,16 +9,14 @@ const Drafts = () => {
 
     return (
         <div className="drafts">
-            {
-                drafts.map(mess => {
-                    return (
-                        <BriefMessage
-                            key={mess.title}
-                            mess={mess}
-                        />);
+            {drafts.length ? drafts.map(mess => {
+                return (
+                    <BriefMessage
+                        key={mess.title}
+                        mess={mess}
+                    />);
 
-                })
-            }
+            }) : <Preloader />}
         </div>
     );
 }

@@ -1,5 +1,5 @@
 .App {
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   grid-template-rows: 56px 1fr;
   grid-template-columns: 232px 1fr;
@@ -11,13 +11,19 @@
     "sidebar content";
 }
 
-body *:hover {
-  cursor: url("../img/cursor.svg");
+body {
+  overflow: hidden;
 }
 
+.wrapper {
+  grid-area: content;
+  height: 100vh;
+}
 
 .content {
-  grid-area: content;
+  /* grid-area: content; */
+  /* height: 100%; */
+  overflow: auto;
 }
 
 .count {

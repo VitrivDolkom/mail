@@ -19,7 +19,15 @@ function App() {
 
     useEffect(() => {
         document.body.style.cursor = `url(${cursor}), auto`;
+        const contentWrapper = document.querySelector(".wrapper");
+        const content = document.querySelector(".content");
+        let contentHeight = contentWrapper.clientHeight - 56 - 13 - 20;
+        content.style.height = `${contentHeight}px`;
 
+        window.addEventListener("resize", () => {
+            contentHeight = contentWrapper.clientHeight - 56 - 13 - 20;
+            content.style.height = `${contentHeight}px`;
+        });
     }, []);
 
     return (
@@ -27,18 +35,20 @@ function App() {
             <BrowserRouter >
                 <Navbar />
                 <Sidebar />
-                <div className="content">
-                    <Routes >
-                        <Route path='/' element={<General />} />
-                        <Route path='/in' element={<Incoming />} />
-                        <Route path='/imp' element={<Important />} />
-                        <Route path='/out' element={<Outcoming />} />
-                        <Route path='/draft' element={<Drafts />} />
-                        <Route path='/arc' element={<Archive />} />
-                        <Route path='/spam' element={<Spam />} />
-                        <Route path='/trash' element={<Trash />} />
-                        <Route path='/letter' element={<Letter />} />
-                    </Routes>
+                <div className="wrapper">
+                    <div className="content">
+                        <Routes >
+                            <Route path='/' element={<General />} />
+                            <Route path='/in' element={<Incoming />} />
+                            <Route path='/imp' element={<Important />} />
+                            <Route path='/out' element={<Outcoming />} />
+                            <Route path='/draft' element={<Drafts />} />
+                            <Route path='/arc' element={<Archive />} />
+                            <Route path='/spam' element={<Spam />} />
+                            <Route path='/trash' element={<Trash />} />
+                            <Route path='/letter' element={<Letter />} />
+                        </Routes>
+                    </div>
                 </div>
             </BrowserRouter>
         </div >

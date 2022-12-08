@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import Preloader from "../../atom/Preloader/Preloader";
 import BriefMessage from "../../components/BriefMessage/BriefMessage";
 import MessagesContext from "../../context/MessagesContext";
 
@@ -8,14 +9,14 @@ const Trash = () => {
 
     return (
         <div className="trash">
-            {trash.map(mess => {
+            {trash.length ? trash.map(mess => {
                 return (
                     <BriefMessage
                         key={mess.title}
                         mess={mess}
                     />);
 
-            })}
+            }) : <Preloader />}
         </div>
     );
 }
