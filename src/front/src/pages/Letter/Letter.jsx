@@ -2,15 +2,24 @@ import "./style.css";
 import { useContext } from "react";
 import MessagesContext from "../../context/MessagesContext";
 import Dot from "../../atom/Dot/Dot";
-import { getFormattedDate, getFullName } from "../../helpers/func";
+import { downloadFile, getFormattedDate, getFullName, getImageSize } from "../../helpers/func";
+import blur from "../../img/blur.webp";
+import LoadingImage from "../../atom/LoadingImage/LoadingImage";
+import { Link } from "react-router-dom";
+import { websiteURL } from "../../helpers/constants";
 
 
 const Letter = () => {
     const { currentLetter } = useContext(MessagesContext);
 
     const showRecieverList = (persons) => {
-        let list = ` ${getFullName(persons[0])}, ${getFullName(persons[1])} `;
-
+        let list = "";
+        if (persons.length > 0) {
+            list += ` ${getFullName(persons[0])}`;
+        }
+        if (persons.length > 1) {
+            list += ` ${getFullName(persons[1])} `;
+        }
         return list;
     }
 
@@ -42,20 +51,20 @@ const Letter = () => {
         return result;
     }
 
+
     return (
         <>
             {
                 currentLetter ? (<div className="letter" >
                     < div className="top" >
                         <h2>{currentLetter.title}</h2>
-                        <ul>categories</ul>
                     </ div>
                     <div className="info">
                         <div className="left">
                             <div className="ava">
                                 <Dot isReaded={currentLetter.read} />
 
-                                <img src={currentLetter.to[0].avatar} alt="avatar" />
+                                <img src="" alt="ава" />
                             </div>
                         </div>
                         <div className="right">
@@ -65,25 +74,37 @@ const Letter = () => {
                             </div>
                             <div className="whom">
                                 Кому: Вы,{showRecieverList(currentLetter.to)}
-                                <a>{countOtherReciever(currentLetter.to)}</a>
+                                <a titl="Посмотреть всех получателей">{countOtherReciever(currentLetter.to)}</a>
                             </div>
                         </div>
                     </div>
-                    <div className="files">
-                        <ul>
-                            <li><img src="" alt="" /></li>
-                        </ul>
-                        <div className="info">
-                            <div className="file-quant"></div>
-                            <a className="downloadFiles"></a>
-                            <div className="files-weight"></div>
-                        </div>
+                    {
+                        currentLetter.doc ? (
+                            <div className="files">
+                                <div className="image">
+                                    <LoadingImage
+                                        src={currentLetter.doc.img}
+                                        placeholderSrc={blur}
+                                        alt="image"
+                                    />
+                                </div>
+                                <div className="info">
+                                    <div className="file-quant">1 файл</div>
+                                    <a
+                                        onClick={() => downloadFile(currentLetter.doc.img, "image.jpg")}
+                                        className="download-files"
+                                        title="Скачать файл">Скачать </a>
+                                    <div className="files-weight">({getImageSize(currentLetter.doc.img)}Mb)</div>
+                                </div>
+                            </div>
+                        ) : " "
+                    }
 
-                    </div>
                     <div className="content">
                         {currentLetter.text}
                     </div>
-                </div >) : ""}
+                </div >) : ""
+            }
         </>
 
     );

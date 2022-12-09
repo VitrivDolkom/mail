@@ -10,7 +10,7 @@ const BriefMessage = ({ mess }) => {
     const { currentLetter, setCurrentLetter } = useContext(MessagesContext);
     const navigate = useNavigate();
 
-    const changeCurrentPage = () => {
+    const changeCurrentLetter = () => {
         navigate("/letter");
         setCurrentLetter(mess);
         localStorage.setItem("currentLetter", JSON.stringify(mess));
@@ -18,20 +18,17 @@ const BriefMessage = ({ mess }) => {
 
     return (
         <div className="brief"
-            onClick={() => changeCurrentPage()}>
+            onClick={() => changeCurrentLetter()}>
             <div className="left">
                 <div className="ava">
                     <Dot isReaded={mess.read} />
-                    <img src={mess.to[0].avatar} alt="" />
+                    <img src="" alt="ава" />
                 </div>
                 <div className={`name ${mess.read ? "readed" : ""}`}>{`${mess.author.name} ${mess.author.surname}`}</div>
             </div>
             <div className={`t1 ${mess.read ? "readed" : ""}`}>{mess.title}</div>
             <div className="t2">{mess.text}</div>
             <div className="right">
-                <ul>
-                    {/* categories */}
-                </ul>
                 <div className="date">{getFormattedDate(mess.date, false)}</div>
             </div>
 

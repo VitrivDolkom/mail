@@ -29,6 +29,17 @@ export const getMonthName = (number) => {
     return monthNames[number - 1];
 }
 
+export const downloadFile = (file, fileName) => {
+    let anchor = document.createElement("a");
+
+    anchor.href = file;
+    anchor.download = "image.jpg";
+    document.body.append(anchor);
+    anchor.style = "display: none;";
+    anchor.click();
+    anchor.remove();
+}
+
 export const getFormattedDate = (date, isFullDate) => {
     let result = "";
     const day = new Date().getDate();
@@ -161,3 +172,12 @@ const quicksort = (times, messages, start, end) => {
 
 }
 
+export const getImageSize = (image) => {
+    let stringLength = image.length;
+    let y = image[stringLength - 1] === '=' && image[stringLength - 2] === '=' ? 2 : 1;
+    let size = stringLength * 3 / 4 - y;
+    size /= 1024 * 1024;
+    size = Math.round(size * 10) / 10;
+
+    return size;
+}

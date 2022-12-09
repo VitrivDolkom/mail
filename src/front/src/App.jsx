@@ -3,7 +3,7 @@ import './styles/App.css';
 import './styles/_zero.css';
 import Sidebar from './components/Sidebar/Sidebar';
 import General from './pages/General/General';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Incoming from './pages/Incoming/Incoming';
 import Important from './pages/Important/Important';
@@ -16,6 +16,7 @@ import cursor from "./img/cursor.svg";
 import Letter from './pages/Letter/Letter';
 
 function App() {
+
 
     useEffect(() => {
         document.body.style.cursor = `url(${cursor}), auto`;

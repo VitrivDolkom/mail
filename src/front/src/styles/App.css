@@ -18,12 +18,12 @@ body {
 .wrapper {
   grid-area: content;
   height: 100vh;
+
 }
 
 .content {
-  /* grid-area: content; */
-  /* height: 100%; */
   overflow: auto;
+
 }
 
 .count {

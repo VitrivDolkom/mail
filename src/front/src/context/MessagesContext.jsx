@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react"
+import { websiteURL } from "../helpers/constants";
 import { getFromLocalStorage, sortMessages } from "../helpers/func";
 
 
@@ -16,7 +17,7 @@ export const MessagesProvider = ({ children }) => {
     const [currentLetter, setCurrentLetter] = useState(JSON.parse(getFromLocalStorage("currentLetter", JSON.stringify({}))));
 
     useEffect(() => {
-        fetch("http://localhost:3000/getm")
+        fetch(`${websiteURL}getMessages`)
             .then(raw => raw.json())
             .then(messages => {
                 sortMessages(messages);

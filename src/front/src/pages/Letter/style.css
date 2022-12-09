@@ -46,10 +46,11 @@
 
 
 .letter .content {
+  width: 80%;
   margin-top: 28px;
   color: var(--brief-bold);
   font-size: 15px;
-  line-height: 20px;
+  line-height: 28px;
 }
 
 .letter .info {
@@ -58,7 +59,40 @@
   margin-top: 20px;
 }
 
-.letter .info .left {}
+.letter .files {
+  margin-top: 20px;
+}
+
+.files .image {
+  width: 256px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.files .image img {
+  max-width: 100%;
+}
+
+.files .info .file-quant {
+  color: var(--text);
+}
+
+.download-files {
+  color: var(--ref);
+  margin-left: 14px;
+  font-size: 13px;
+}
+
+.files-weight {
+  color: var(--brief-thin);
+  margin-left: 4px;
+  font-size: 13px;
+}
+
+.download-files:hover {
+  text-decoration: underline;
+}
+
 
 .letter .info .right {
   margin-left: 12px;

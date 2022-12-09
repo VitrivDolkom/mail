@@ -10,6 +10,7 @@
   --brief-thin: #87898F;
   --brief-dot: #A5A7AD;
   --brief-blue: #005FF9;
+  --ref: #005BD1;
   background-color: var(--back-app);
 
   font-family: Arial, sans-serif;
@@ -37,4 +38,9 @@
   --brief-thin: #8C8E94;
   --brief-dot: #9C9DA2;
   --brief-blue: #3C82FD;
+  --ref: #589BFF;
+}
+
+img {
+  color: var(--text);
 }
