@@ -11,10 +11,10 @@ const Archive = () => {
 
     return (
         <section className="archive">
-            {archive.length ? archive.map(mess => {
+            {archive.length ? archive.map((mess, index) => {
                 return (
                     <BriefMessage
-                        key={mess.title}
+                        key={index}
                         mess={mess}
                     />);
 

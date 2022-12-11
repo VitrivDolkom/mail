@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react"
 import { websiteURL } from "../helpers/constants";
-import { getFromLocalStorage, sortMessages } from "../helpers/func";
+import { getFromLocalStorage } from "../helpers/func";
 
 
 const MessagesContext = createContext();
@@ -20,9 +20,9 @@ export const MessagesProvider = ({ children }) => {
         fetch(`${websiteURL}getMessages`)
             .then(raw => raw.json())
             .then(messages => {
-                sortMessages(messages);
 
                 setAllMessages(messages);
+
                 let archiveMess = [];
                 let spamMess = [];
                 let outcomingMess = [];
@@ -30,6 +30,7 @@ export const MessagesProvider = ({ children }) => {
                 let trashMess = [];
                 let importantMess = [];
                 let draftMess = [];
+
                 messages.forEach(mess => {
                     if (mess.folder === "Архив") {
                         archiveMess.push(mess);
@@ -50,7 +51,6 @@ export const MessagesProvider = ({ children }) => {
                 });
 
 
-                // setIncoming();
                 setArchive(archiveMess);
                 setSpam(spamMess);
                 setOutcoming(outcomingMess);

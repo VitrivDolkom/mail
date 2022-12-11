@@ -9,10 +9,10 @@ const Important = () => {
 
     return (
         <section className="important">
-            {important.length ? important.map(mess => {
+            {important.length ? important.map((mess, index) => {
                 return (
                     <BriefMessage
-                        key={mess.title}
+                        key={index}
                         mess={mess}
                     />);
 

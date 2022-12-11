@@ -1,27 +1,55 @@
 const http = require("http");
 const path = require("path");
-const fs = require("fs")
+const fs = require("fs");
+const { sortMessages } = require("./functions");
+
 
 
 // TODO CREATE
 
-const frontFolder = "front/dist";
-const assetsFolder = "front/dist/assets";
+const frontFolder = "../front/dist";
+const assetsFolder = "../front/dist/assets";
+const dataBase = "db.json";
+const dataBaseSorted = "dbs.json";
+const myDataBase = "mydb.json";
+
+const pageList = ["/in", "/out", "/imp", "/trash", "/spam", "/arc", "/draft", "/letter"];
+
+
+const setSortedMessages = () => {
+    let dataBasePath = path.join(__dirname, "/", dataBase);
+    let listMessages = [];
+    fs.readFile(dataBasePath, 'utf-8', function (error, content) {
+        if (error) {
+            return console.log("error");
+        }
+        listMessages = JSON.parse(content);
+        console.log(listMessages[0].author);
+        sortMessages(listMessages);
+        listMessages = JSON.stringify(listMessages);
+        fs.writeFile(dataBaseSorted, listMessages, function (error, result) {
+            if (error) {
+                console.log("error");
+            }
+        });
+    });
+}
 
 http.createServer((req, res) => {
+    let isPage = false;
 
-    if (req.url === "/") {
-        // fs.readdir(frontFolder, (error, files) => {
-        //     files.forEach(file => {
+    pageList.forEach(url => {
+        if (url === req.url) {
+            isPage = true;
+        }
+    })
 
-        //         sendRes(file, error, res);
-        //     });
-        // })
 
+    if (req.url === "/getMessages") {
+        // setSortedMessages();
+        sendRes("/", dataBase, "application/json", res);
+    } else if (req.url === "/" || isPage) {
         sendRes(frontFolder, "index.html", "text/html", res);
-
-
-
     } else {
         sendRes(frontFolder, req.url, getContentType(req.url), res);
     }
@@ -52,7 +80,7 @@ function getContentType(url) {
 
 
 function sendRes(folder, url, contentType, res) {
-    let file = path.join(__dirname, "..", folder, url);
+    let file = path.join(__dirname, folder, url);
 
     fs.readFile(file, (error, content) => {
         if (error) {
@@ -61,10 +89,10 @@ function sendRes(folder, url, contentType, res) {
             res.end();
             console.log(`file ${file} does not exist`);
         } else {
+            res.setHeader("Access-Control-Allow-Origin", "*");
             res.writeHead(200, { "Content-type": contentType });
             res.write(content);
             res.end();
-            // console.log(`file ${file} OK`);
         }
     })
 }

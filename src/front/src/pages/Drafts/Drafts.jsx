@@ -9,10 +9,10 @@ const Drafts = () => {
 
     return (
         <section className="drafts">
-            {drafts.length ? drafts.map(mess => {
+            {drafts.length ? drafts.map((mess, index) => {
                 return (
                     <BriefMessage
-                        key={mess.title}
+                        key={index}
                         mess={mess}
                     />);
 

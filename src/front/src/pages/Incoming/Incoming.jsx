@@ -7,13 +7,12 @@ import "./style.css";
 
 const Incoming = () => {
     const { allMessages } = useContext(MessagesContext);
-
     return (
         <section className="in">
-            {allMessages.length ? allMessages.map(mess => {
+            {allMessages.length ? allMessages.map((mess, index) => {
                 return (
                     <BriefMessage
-                        key={mess.title}
+                        key={index}
                         mess={mess}
                     />);
 

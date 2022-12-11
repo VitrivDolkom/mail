@@ -6,16 +6,16 @@ import MessagesContext from "../../context/MessagesContext";
 
 const Outcoming = () => {
     const { outcoming } = useContext(MessagesContext);
-    // const [messagesLoaded, setMessagesLoaded] = useContext(false);
+    // const [messagesLoaded, setMessagesLoaded] = useContext(false);   
 
     return (
         <section className="outcoming">
             {
                 outcoming.length ?
-                    outcoming.map(mess => {
+                    outcoming.map((mess, index) => {
                         return (
                             <BriefMessage
-                                key={mess.title}
+                                key={index}
                                 mess={mess}
                             />);
 
