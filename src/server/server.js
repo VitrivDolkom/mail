@@ -5,38 +5,37 @@ const { sortMessages } = require("./functions");
 
 
 
-// TODO CREATE
-
 const frontFolder = "../front/dist";
 const assetsFolder = "../front/dist/assets";
-const dataBase = "db.json";
-const dataBaseSorted = "dbs.json";
-const myDataBase = "mydb.json";
+const dataBase = require("./db.json");
+const dataBaseSortedName = "dbs.json";
+let dataBaseSorted;
 
 const pageList = ["/in", "/out", "/imp", "/trash", "/spam", "/arc", "/draft", "/letter"];
 
 
 const setSortedMessages = () => {
-    let dataBasePath = path.join(__dirname, "/", dataBase);
-    let listMessages = [];
-    fs.readFile(dataBasePath, 'utf-8', function (error, content) {
+    fs.writeFileSync(dataBaseSortedName, JSON.stringify(dataBase), function (error, result) {
         if (error) {
-            return console.log("error");
+            console.log("error");
         }
-        listMessages = JSON.parse(content);
-        console.log(listMessages[0].author);
-        sortMessages(listMessages);
-        listMessages = JSON.stringify(listMessages);
-        fs.writeFile(dataBaseSorted, listMessages, function (error, result) {
-            if (error) {
-                console.log("error");
-            }
-        });
     });
+    isSorted = true;
 }
 
+if (!fs.existsSync(dataBaseSortedName)) {
+    sortMessages(dataBase);
+    setSortedMessages();
+}
+
+let isPage;
+let prevIndex = 0;
+const messPerRequest = 30;
+
+
+
 http.createServer((req, res) => {
-    let isPage = false;
+    isPage = false;
 
     pageList.forEach(url => {
         if (url === req.url) {
@@ -46,8 +45,7 @@ http.createServer((req, res) => {
 
 
     if (req.url === "/getMessages") {
-        // setSortedMessages();
-        sendRes("/", dataBase, "application/json", res);
+        sendMessages(res);
     } else if (req.url === "/" || isPage) {
         sendRes(frontFolder, "index.html", "text/html", res);
     } else {
@@ -95,4 +93,13 @@ function sendRes(folder, url, contentType, res) {
             res.end();
         }
     })
+}
+
+const sendMessages = (res) => {
+    dataBaseSorted = require(`./${dataBaseSortedName}`);
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.writeHead(200, { "Content-type": "application/json" });
+    res.write(JSON.stringify(dataBaseSorted.slice(prevIndex, prevIndex + messPerRequest)));
+    res.end();
+    prevIndex += messPerRequest;
 }

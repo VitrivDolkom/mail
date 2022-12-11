@@ -21,7 +21,6 @@ export const MessagesProvider = ({ children }) => {
             .then(raw => raw.json())
             .then(messages => {
 
-                setAllMessages(messages);
 
                 let archiveMess = [];
                 let spamMess = [];
@@ -30,6 +29,7 @@ export const MessagesProvider = ({ children }) => {
                 let trashMess = [];
                 let importantMess = [];
                 let draftMess = [];
+
 
                 messages.forEach(mess => {
                     if (mess.folder === "Архив") {
@@ -47,17 +47,19 @@ export const MessagesProvider = ({ children }) => {
                     } else if (mess.folder === "Черновики") {
                         draftMess.push(mess);
                     }
-
                 });
 
-
-                setArchive(archiveMess);
-                setSpam(spamMess);
-                setOutcoming(outcomingMess);
-                setIncoming(incomingMess);
-                setTrash(trashMess);
-                setImportant(importantMess);
-                setDrafts(draftMess);
+                setAllMessages(prev => [...prev, ...messages]);
+                setArchive(prev => [...prev, ...archiveMess]);
+                setSpam(prev => [...prev, ...spamMess]);
+                setOutcoming(prev => [...prev, ...outcomingMess]);
+                setIncoming(prev => [...prev, ...incomingMess]);
+                setTrash(prev => [...prev, ...trashMess]);
+                setImportant(prev => [...prev, ...importantMess]);
+                setDrafts(prev => [...prev, ...draftMess]);
+            })
+            .catch(err => {
+                console.error(err);
             });
     }, []);
 
