@@ -9,9 +9,9 @@ const General = () => {
     }, []);
 
     return (
-        <div className="general">
+        <section className="general">
 
-        </div>
+        </section>
     );
 }
 

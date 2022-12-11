@@ -10,7 +10,7 @@ const Archive = () => {
     const { archive } = useContext(MessagesContext);
 
     return (
-        <div className="archive">
+        <section className="archive">
             {archive.length ? archive.map(mess => {
                 return (
                     <BriefMessage
@@ -19,7 +19,7 @@ const Archive = () => {
                     />);
 
             }) : <Preloader />}
-        </div>
+        </section>
     );
 }
 

@@ -23,7 +23,7 @@ body {
 
 .content {
   overflow: auto;
-
+  border-radius: 12px;
 }
 
 .count {

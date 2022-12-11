@@ -8,7 +8,7 @@ const Important = () => {
     const { important } = useContext(MessagesContext);
 
     return (
-        <div className="important">
+        <section className="important">
             {important.length ? important.map(mess => {
                 return (
                     <BriefMessage
@@ -17,7 +17,7 @@ const Important = () => {
                     />);
 
             }) : <Preloader />}
-        </div>
+        </section>
     );
 }
 

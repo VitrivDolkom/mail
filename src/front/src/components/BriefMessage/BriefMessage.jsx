@@ -4,7 +4,7 @@ import { useContext } from "react";
 import MessagesContext from "../../context/MessagesContext";
 import { useNavigate } from "react-router-dom";
 import Dot from "../../atom/Dot/Dot";
-import { getFormattedDate } from "../../helpers/func";
+import { getFormattedDate, getFullName } from "../../helpers/func";
 
 const BriefMessage = ({ mess }) => {
     const { currentLetter, setCurrentLetter } = useContext(MessagesContext);
@@ -24,7 +24,7 @@ const BriefMessage = ({ mess }) => {
                     <Dot isReaded={mess.read} />
                     <img src="" alt="ава" />
                 </div>
-                <div className={`name ${mess.read ? "readed" : ""}`}>{`${mess.author.name} ${mess.author.surname}`}</div>
+                <div className={`name ${mess.read ? "readed" : ""}`}>{getFullName(mess.author)}</div>
             </div>
             <div className={`t1 ${mess.read ? "readed" : ""}`}>{mess.title}</div>
             <div className="t2">{mess.text}</div>

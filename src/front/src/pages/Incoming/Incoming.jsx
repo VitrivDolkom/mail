@@ -9,7 +9,7 @@ const Incoming = () => {
     const { allMessages } = useContext(MessagesContext);
 
     return (
-        <div className="in">
+        <section className="in">
             {allMessages.length ? allMessages.map(mess => {
                 return (
                     <BriefMessage
@@ -18,7 +18,7 @@ const Incoming = () => {
                     />);
 
             }) : <Preloader />}
-        </div>
+        </section>
     );
 }
 

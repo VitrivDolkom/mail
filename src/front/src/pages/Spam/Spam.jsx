@@ -8,7 +8,7 @@ const Spam = () => {
     const { spam } = useContext(MessagesContext);
 
     return (
-        <div className="spam">
+        <section className="spam">
             {spam.length ? spam.map(mess => {
                 return (
                     <BriefMessage
@@ -17,7 +17,7 @@ const Spam = () => {
                     />);
 
             }) : <Preloader />}
-        </div>
+        </section>
     );
 }
 

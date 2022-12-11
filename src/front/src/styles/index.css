@@ -44,3 +44,8 @@
 img {
   color: var(--text);
 }
+
+section {
+  background-color: var(--back);
+  border-radius: 12px;
+}

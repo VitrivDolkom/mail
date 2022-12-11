@@ -50,7 +50,7 @@ const ListPages = () => {
                 break;
 
             default:
-                currentNamePage = ";"
+                currentNamePage = curPage;
                 break;
         }
 

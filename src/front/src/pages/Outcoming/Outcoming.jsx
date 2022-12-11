@@ -9,7 +9,7 @@ const Outcoming = () => {
     // const [messagesLoaded, setMessagesLoaded] = useContext(false);
 
     return (
-        <div className="outcoming">
+        <section className="outcoming">
             {
                 outcoming.length ?
                     outcoming.map(mess => {
@@ -21,7 +21,7 @@ const Outcoming = () => {
 
                     }) : <Preloader />
             }
-        </div>
+        </section>
     );
 }
 

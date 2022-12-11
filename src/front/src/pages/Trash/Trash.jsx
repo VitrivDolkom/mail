@@ -8,7 +8,7 @@ const Trash = () => {
     const { trash } = useContext(MessagesContext);
 
     return (
-        <div className="trash">
+        <section className="trash">
             {trash.length ? trash.map(mess => {
                 return (
                     <BriefMessage
@@ -17,7 +17,7 @@ const Trash = () => {
                     />);
 
             }) : <Preloader />}
-        </div>
+        </section>
     );
 }
 

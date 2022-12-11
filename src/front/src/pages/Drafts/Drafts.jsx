@@ -8,7 +8,7 @@ const Drafts = () => {
     const { drafts } = useContext(MessagesContext);
 
     return (
-        <div className="drafts">
+        <section className="drafts">
             {drafts.length ? drafts.map(mess => {
                 return (
                     <BriefMessage
@@ -17,7 +17,7 @@ const Drafts = () => {
                     />);
 
             }) : <Preloader />}
-        </div>
+        </section>
     );
 }
 

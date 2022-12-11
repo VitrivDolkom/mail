@@ -7,8 +7,8 @@ import { useContext } from "react";
 import ThemeContext from "../../context/Theme";
 
 const Navbar = () => {
-
     const { theme } = useContext(ThemeContext);
+
     return (
         <nav className="navbar">
             {theme === "light" ?
