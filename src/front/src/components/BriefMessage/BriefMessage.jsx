@@ -5,6 +5,7 @@ import MessagesContext from "../../context/MessagesContext";
 import { useNavigate } from "react-router-dom";
 import Dot from "../../atom/Dot/Dot";
 import { getFormattedDate, getFullName } from "../../helpers/func";
+import noAva from "../../img/noAva.webp";
 
 const BriefMessage = ({ mess }) => {
     const { currentLetter, setCurrentLetter } = useContext(MessagesContext);
@@ -22,17 +23,17 @@ const BriefMessage = ({ mess }) => {
             <div className="left">
                 <div className="ava">
                     <Dot isReaded={mess.read} />
-                    <img src="" alt="ава" />
+                    <img src={mess.author.avatar !== undefined ? mess.author.avatar : noAva} alt="ава" />
                 </div>
                 <div className={`name ${mess.read ? "readed" : ""}`}>{getFullName(mess.author)}</div>
             </div>
-            <div className={`t1 ${mess.read ? "readed" : ""}`}>{mess.title}</div>
-            <div className="t2">{mess.text}</div>
+            <div className="mid">
+                <div className={`short ${mess.read ? "readed" : ""}`}>{mess.title}</div>
+                <div className="text">{mess.text}</div>
+            </div>
             <div className="right">
                 <div className="date">{getFormattedDate(mess.date, false)}</div>
             </div>
-
-
         </div>
     );
 }

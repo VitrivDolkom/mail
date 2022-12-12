@@ -32,6 +32,7 @@
   text-decoration: underline;
 }
 
+
 .letter .ava {
   margin-left: 0;
 }
@@ -46,7 +47,6 @@
 
 
 .letter .content {
-  width: 80%;
   margin-top: 28px;
   color: var(--brief-bold);
   font-size: 15px;
@@ -110,4 +110,14 @@
 
 .letter .info .whom {
   margin-top: 8px;
+}
+
+
+@media screen and (max-width: 768px) {
+
+  .letter {
+    padding: 16px 20px 20px 20px;
+  }
+
+  .letter .content {}
 }

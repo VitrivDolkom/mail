@@ -7,6 +7,7 @@ import blur from "../../img/blur.webp";
 import LoadingImage from "../../atom/LoadingImage/LoadingImage";
 import { Link } from "react-router-dom";
 import { websiteURL } from "../../helpers/constants";
+import noAva from "../../img/noAva.webp";
 
 
 const Letter = () => {
@@ -64,7 +65,7 @@ const Letter = () => {
                             <div className="ava">
                                 <Dot isReaded={currentLetter.read} />
 
-                                <img src="" alt="ава" />
+                                <img src={currentLetter.author.avatar !== undefined ? currentLetter.author.avatar : noAva} alt="ава" />
                             </div>
                         </div>
                         <div className="right">

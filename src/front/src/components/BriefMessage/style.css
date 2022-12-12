@@ -3,10 +3,10 @@
   background-color: transparent;
   border-radius: 12px;
   height: 48px;
-  display: flex;
-  align-items: center;
   padding: 0px 11px;
   margin-right: 12px;
+  display: flex;
+  align-items: center;
 }
 
 .brief .left {
@@ -14,10 +14,6 @@
   display: flex;
   align-items: center;
   flex: 0 0 300px;
-}
-
-.brief .t2 {
-  flex: 1 1 auto;
 }
 
 .brief .right {
@@ -32,17 +28,30 @@
   background-color: var(--side-back);
 }
 
-.brief .t1 {
-  flex: 0 0 auto;
-  margin-left: 13px;
+.brief .mid {
+  width: 100px;
+  flex: 1 1 auto;
+  display: inline-flex;
+
+}
+
+.brief .short {
+
+  /* max-width: 100%; */
+  /* width: 100px; */
+  flex: 1 1 auto;
+  /* white-space: nowrap; */
   font-weight: 700;
   font-size: 15px;
   color: var(--brief-bold);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.brief .t2 {
-  width: 100px;
-  flex: 0 1 1700px;
+.brief .text {
+  width: 0px;
+  flex: 1 0 auto;
   overflow: hidden;
   font-weight: 400;
   font-size: 15px;
@@ -67,12 +76,14 @@
   font-weight: 400;
 }
 
-.t1.readed {
+.short.readed {
   font-weight: 400;
 }
 
 
 .ava {
+  width: 32px;
+  height: 32px;
   margin-left: 11px;
   position: relative;
 }

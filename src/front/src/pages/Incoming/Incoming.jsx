@@ -19,7 +19,7 @@ const Incoming = () => {
                             />);
 
                     })}
-                    <div className="loadMore">Загрузить сообщения</div>
+                    {/* <div className="loadMore">Загрузить сообщения</div> */}
                 </>
                 : <Preloader />
             }
