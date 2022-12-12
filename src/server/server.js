@@ -43,8 +43,11 @@ http.createServer((req, res) => {
         }
     })
 
+    if (req.url.indexOf("newMessages") >= 0) {
+        prevIndex = 0;
+    }
 
-    if (req.url === "/getMessages") {
+    if (req.url.indexOf("/getMessages/") >= 0) {
         sendMessages(res);
     } else if (req.url === "/" || isPage) {
         sendRes(frontFolder, "index.html", "text/html", res);
@@ -96,7 +99,11 @@ function sendRes(folder, url, contentType, res) {
 }
 
 const sendMessages = (res) => {
+    // console.log(prevIndex);
     dataBaseSorted = require(`./${dataBaseSortedName}`);
+    // if (prevIndex >= dataBaseSorted.length) {
+    //     prevIndex = 0;
+    // }
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.writeHead(200, { "Content-type": "application/json" });
     res.write(JSON.stringify(dataBaseSorted.slice(prevIndex, prevIndex + messPerRequest)));

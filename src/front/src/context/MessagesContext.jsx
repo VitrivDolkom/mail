@@ -5,22 +5,36 @@ import { getFromLocalStorage } from "../helpers/func";
 
 const MessagesContext = createContext();
 
+
 export const MessagesProvider = ({ children }) => {
-    const [allMessages, setAllMessages] = useState([]);
-    const [archive, setArchive] = useState([]);
-    const [spam, setSpam] = useState([]);
-    const [outcoming, setOutcoming] = useState([]);
-    const [incoming, setIncoming] = useState([]);
-    const [trash, setTrash] = useState([]);
-    const [important, setImportant] = useState([]);
-    const [drafts, setDrafts] = useState([]);
+    const [allMessages, setAllMessages] = useState(JSON.parse(getFromLocalStorage("allMessages", JSON.stringify([]))));
+    const [archive, setArchive] = useState(JSON.parse(getFromLocalStorage("archive", JSON.stringify([]))));
+    const [spam, setSpam] = useState(JSON.parse(getFromLocalStorage("spam", JSON.stringify([]))));
+    const [outcoming, setOutcoming] = useState(JSON.parse(getFromLocalStorage("outcoming", JSON.stringify([]))));
+    const [incoming, setIncoming] = useState(JSON.parse(getFromLocalStorage("incoming", JSON.stringify([]))));
+    const [trash, setTrash] = useState(JSON.parse(getFromLocalStorage("trash", JSON.stringify([]))));
+    const [important, setImportant] = useState(JSON.parse(getFromLocalStorage("important", JSON.stringify([]))));
+    const [drafts, setDrafts] = useState(JSON.parse(getFromLocalStorage("drafts", JSON.stringify([]))));
     const [currentLetter, setCurrentLetter] = useState(JSON.parse(getFromLocalStorage("currentLetter", JSON.stringify({}))));
 
     useEffect(() => {
-        fetch(`${websiteURL}getMessages`)
+        fetchGetMessages("newMessages");
+
+        const content = document.querySelector(".content");
+        let end = false;
+        content.addEventListener("scroll", (e) => {
+            end = content.scrollHeight - content.clientHeight === content.scrollTop
+            if (end) {
+                fetchGetMessages("more");
+            }
+        });
+    }, []);
+
+    const fetchGetMessages = (type) => {
+
+        fetch(`${websiteURL}getMessages/${type}`)
             .then(raw => raw.json())
             .then(messages => {
-
 
                 let archiveMess = [];
                 let spamMess = [];
@@ -61,9 +75,10 @@ export const MessagesProvider = ({ children }) => {
             .catch(err => {
                 console.error(err);
             });
-    }, []);
+    }
 
     return (
+
         <MessagesContext.Provider value={
             {
                 allMessages, setAllMessages, spam,

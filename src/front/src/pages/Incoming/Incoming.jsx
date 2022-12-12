@@ -9,15 +9,21 @@ const Incoming = () => {
     const { allMessages } = useContext(MessagesContext);
     return (
         <section className="in">
-            {allMessages.length ? allMessages.map((mess, index) => {
-                return (
-                    <BriefMessage
-                        key={index}
-                        mess={mess}
-                    />);
+            {allMessages.length ?
+                <>
+                    {allMessages.map((mess, index) => {
+                        return (
+                            <BriefMessage
+                                key={index}
+                                mess={mess}
+                            />);
 
-            }) : <Preloader />}
-        </section>
+                    })}
+                    <div className="loadMore">Загрузить сообщения</div>
+                </>
+                : <Preloader />
+            }
+        </section >
     );
 }
 

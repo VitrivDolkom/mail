@@ -9,14 +9,17 @@ const Drafts = () => {
 
     return (
         <section className="drafts">
-            {drafts.length ? drafts.map((mess, index) => {
-                return (
-                    <BriefMessage
-                        key={index}
-                        mess={mess}
-                    />);
-
-            }) : <Preloader />}
+            {drafts.length ?
+                <>{drafts.map((mess, index) => {
+                    return (
+                        <BriefMessage
+                            key={index}
+                            mess={mess}
+                        />);
+                })}
+                    <div className="loadMore">Загрузить сообщения</div>
+                </>
+                : <Preloader />}
         </section>
     );
 }
