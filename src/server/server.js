@@ -3,24 +3,58 @@ const path = require("path");
 const fs = require("fs");
 const { sortMessages } = require("./functions");
 
-
-
-const frontFolder = "../front/dist";
-const assetsFolder = "../front/dist/assets";
 const dataBase = require("./db.json");
+const frontFolder = "../front/dist";
 const dataBaseSortedName = "dbs.json";
 let dataBaseSorted;
+let partedMessages = {
+    in: { currentIndex: 0, list: [] },
+    out: { currentIndex: 0, list: [] },
+    imp: { currentIndex: 0, list: [] },
+    trash: { currentIndex: 0, list: [] },
+    spam: { currentIndex: 0, list: [] },
+    arc: { currentIndex: 0, list: [] },
+    draft: { currentIndex: 0, list: [] },
+};
 
 const pageList = ["/in", "/out", "/imp", "/trash", "/spam", "/arc", "/draft", "/letter"];
 
 
 const setSortedMessages = () => {
-    fs.writeFileSync(dataBaseSortedName, JSON.stringify(dataBase), function (error, result) {
+
+    dataBase.forEach(mess => {
+
+
+        switch (mess.folder) {
+            case "Важное":
+                partedMessages.imp.list.push(mess);
+            case "Отправленные":
+                partedMessages.out.list.push(mess);
+                break;
+            case "Черновики":
+                partedMessages.draft.list.push(mess);
+                break;
+            case "Архив":
+                partedMessages.arc.list.push(mess);
+                break;
+            case "Спам":
+                partedMessages.spam.list.push(mess);
+                break;
+            case "Корзина":
+                partedMessages.trash.list.push(mess);
+                break;
+            default:
+                partedMessages.in.list.push(mess);
+                break;
+        }
+    })
+
+    fs.writeFile(dataBaseSortedName, JSON.stringify(partedMessages), function (error, result) {
         if (error) {
             console.log("error");
         }
     });
-    isSorted = true;
+
 }
 
 if (!fs.existsSync(dataBaseSortedName)) {
@@ -29,10 +63,6 @@ if (!fs.existsSync(dataBaseSortedName)) {
 }
 
 let isPage;
-let prevIndex = 0;
-const messPerRequest = 30;
-
-
 
 http.createServer((req, res) => {
     isPage = false;
@@ -43,12 +73,8 @@ http.createServer((req, res) => {
         }
     })
 
-    if (req.url.indexOf("newMessages") >= 0) {
-        prevIndex = 0;
-    }
-
     if (req.url.indexOf("/getMessages/") >= 0) {
-        sendMessages(res);
+        sendMessages(res, req.url);
     } else if (req.url === "/" || isPage) {
         sendRes(frontFolder, "index.html", "text/html", res);
     } else {
@@ -98,15 +124,58 @@ function sendRes(folder, url, contentType, res) {
     })
 }
 
-const sendMessages = (res) => {
-    // console.log(prevIndex);
-    dataBaseSorted = require(`./${dataBaseSortedName}`);
-    // if (prevIndex >= dataBaseSorted.length) {
-    //     prevIndex = 0;
-    // }
+const sendMessages = (res, path) => {
+    console.log(path)
+    path = path.split("/");
+    partedMessages = require(`./${dataBaseSortedName}`);
+
+    let toSend = [];
+    let fromIndex = 0;
+
+    const messageQuantity = +path[3];
+
+    switch (path[2]) {
+        case "in":
+            toSend = partedMessages.in;
+            break;
+        case "out":
+            toSend = partedMessages.out;
+            break;
+        case "imp":
+            toSend = partedMessages.imp;
+            break;
+        case "draft":
+            toSend = partedMessages.draft;
+            break;
+        case "arc":
+            toSend = partedMessages.arc;
+            break;
+        case "spam":
+            toSend = partedMessages.spam;
+            break;
+        case "trash":
+            toSend = partedMessages.trash;
+            break;
+        default:
+            break;
+    }
+
+    Object.keys(partedMessages).forEach(key => {
+        if (partedMessages[key] !== toSend) {
+            partedMessages[key].currentIndex = 0;
+        }
+    });
+
+    fromIndex = toSend.currentIndex;
+
+    if (path.indexOf("new") >= 0) {
+        toSend.currentIndex = 0;
+    } else {
+        toSend.currentIndex += messageQuantity;
+    }
+
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.writeHead(200, { "Content-type": "application/json" });
-    res.write(JSON.stringify(dataBaseSorted.slice(prevIndex, prevIndex + messPerRequest)));
+    res.write(JSON.stringify(toSend.list.slice(fromIndex, fromIndex + messageQuantity)));
     res.end();
-    prevIndex += messPerRequest;
 }

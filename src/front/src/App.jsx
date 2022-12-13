@@ -1,54 +1,45 @@
-import { useEffect, useState } from 'react';
 import './styles/App.css';
 import './styles/_zero.css';
-import Sidebar from './components/Sidebar/Sidebar';
-import General from './pages/General/General';
+import React, { useEffect, useState, Suspense } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+
+import General from './pages/General/General';
+import Sidebar from './components/Sidebar/Sidebar';
 import Navbar from './components/Navbar/Navbar';
-import Incoming from './pages/Incoming/Incoming';
-import Important from './pages/Important/Important';
-import Outcoming from './pages/Outcoming/Outcoming';
-import Drafts from './pages/Drafts/Drafts';
-import Archive from './pages/Archive/Archive';
-import Spam from './pages/Spam/Spam';
-import Trash from './pages/Trash/Trash';
 import cursor from "./img/cursor.svg";
 import Letter from './pages/Letter/Letter';
+import Preloader from './atom/Preloader/Preloader';
+import Messages from './pages/Messages/Messages';
+
 
 function App() {
 
 
     useEffect(() => {
         document.body.style.cursor = `url(${cursor}), auto`;
-        const contentWrapper = document.querySelector(".wrapper");
-        const content = document.querySelector(".content");
-        let contentHeight = contentWrapper.clientHeight - 56 - 13 - 20;
-        content.style.height = `${contentHeight}px`;
-
-        window.addEventListener("resize", () => {
-            contentHeight = contentWrapper.clientHeight - 56 - 13 - 20;
-            content.style.height = `${contentHeight}px`;
-        });
     }, []);
 
     return (
         <div className="App">
+
             <BrowserRouter >
                 <Navbar />
                 <Sidebar />
                 <div className="wrapper">
                     <div className="content">
-                        <Routes >
-                            <Route path='/' element={<General />} />
-                            <Route path='/in' element={<Incoming />} />
-                            <Route path='/imp' element={<Important />} />
-                            <Route path='/out' element={<Outcoming />} />
-                            <Route path='/draft' element={<Drafts />} />
-                            <Route path='/arc' element={<Archive />} />
-                            <Route path='/spam' element={<Spam />} />
-                            <Route path='/trash' element={<Trash />} />
-                            <Route path='/letter' element={<Letter />} />
-                        </Routes>
+                        <Suspense fallback={<section><Preloader /></section>}>
+                            <Routes>
+                                <Route path='/' element={<General />} />
+                                <Route path='/in' element={<Messages path="in" />} />
+                                <Route path='/imp' element={<Messages path="imp" />} />
+                                <Route path='/out' element={<Messages path="out" />} />
+                                <Route path='/draft' element={<Messages path="draft" />} />
+                                <Route path='/arc' element={<Messages path="arc" />} />
+                                <Route path='/spam' element={<Messages path="spam" />} />
+                                <Route path='/trash' element={<Messages path="trash" />} />
+                                <Route path='/letter' element={<Letter />} />
+                            </Routes>
+                        </Suspense>
                     </div>
                 </div>
             </BrowserRouter>

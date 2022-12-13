@@ -9,15 +9,15 @@ import { MessagesProvider } from './context/MessagesContext';
 
 export const StateContext = createContext(null);
 
+// <React.StrictMode>
+// </React.StrictMode>
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <MessagesProvider>
-            <ThemeProvider>
-                <StateContext.Provider value={{ state }} >
-                    <App />
-                </StateContext.Provider>
-            </ThemeProvider>
-        </MessagesProvider>
-    </React.StrictMode>
+    <MessagesProvider>
+        <ThemeProvider>
+            <StateContext.Provider value={{ state }} >
+                <App />
+            </StateContext.Provider>
+        </ThemeProvider>
+    </MessagesProvider>
 )

@@ -8,6 +8,7 @@ import LoadingImage from "../../atom/LoadingImage/LoadingImage";
 import { Link } from "react-router-dom";
 import { websiteURL } from "../../helpers/constants";
 import noAva from "../../img/noAva.webp";
+import ImpBook from "../../atom/ImpBook/ImpBook";
 
 
 const Letter = () => {
@@ -72,6 +73,7 @@ const Letter = () => {
                             <div className="who">
                                 <div className="person">{currentLetter.author.name} {currentLetter.author.surname}</div>
                                 <div className="date">{getFormattedDate(currentLetter.date, true)}</div>
+                                <ImpBook imp={currentLetter.important} book={currentLetter.bookmark} />
                             </div>
                             <div className="whom">
                                 Кому: Вы,{showRecieverList(currentLetter.to)}
