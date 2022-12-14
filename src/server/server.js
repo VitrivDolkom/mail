@@ -168,11 +168,14 @@ const sendMessages = (res, path) => {
 
     fromIndex = toSend.currentIndex;
 
-    if (path.indexOf("new") >= 0) {
-        toSend.currentIndex = 0;
+    if (path[4] !== undefined) {
+        fromIndex = 0;
+        toSend.currentIndex = 20;
     } else {
         toSend.currentIndex += messageQuantity;
     }
+
+    console.log(toSend.currentIndex);
 
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.writeHead(200, { "Content-type": "application/json" });

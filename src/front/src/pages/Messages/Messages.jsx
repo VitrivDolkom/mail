@@ -9,6 +9,7 @@ const Messages = ({ path }) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const messagesPerScreen = 20;
 
+
     useEffect(() => {
         setMessages([]);
 
@@ -28,18 +29,30 @@ const Messages = ({ path }) => {
             content.style.height = `${contentHeight}px`;
         });
 
+
         let end = false;
-        content.addEventListener("scroll", (e) => {
+
+
+
+        const getMessages = () => {
             end = content.scrollHeight - content.clientHeight === content.scrollTop;
             if (end) {
-                console.log("here");
+
                 fetch(`${websiteURL}getMessages/${path}/${messagesPerScreen}`)
                     .then(raw => raw.json())
                     .then(list => setMessages(prev => [...prev, ...list]))
+                    .finally(() => console.log(end));
+                end = false;
             }
-        });
-    }, [path]);
+        }
 
+        content.addEventListener("scroll", getMessages);
+
+
+        return () => {
+            content.removeEventListener("scroll", getMessages);
+        }
+    }, [path]);
 
     return (
         <section>
