@@ -117,10 +117,13 @@
 }
 
 .brief .show-doc {
+  border-radius: 8px;
   padding: 7px;
 }
 
-
+.brief .show-doc:hover {
+  background-color: var(--side-back);
+}
 
 @media screen and (max-width: 768px) {
 

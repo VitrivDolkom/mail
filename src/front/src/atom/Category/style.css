@@ -1,0 +1,9 @@
+.category {
+  padding: 7px;
+}
+
+.category span {
+  font-size: 15px;
+  margin-left: 10px;
+  color: var(--brief-bold);
+}

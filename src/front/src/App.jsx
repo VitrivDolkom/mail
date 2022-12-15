@@ -1,7 +1,7 @@
 import './styles/App.css';
 import './styles/_zero.css';
 import React, { useEffect, useState, Suspense } from 'react';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, generatePath, Route, Routes, useLocation } from 'react-router-dom';
 
 import General from './pages/General/General';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -10,6 +10,7 @@ import cursor from "./img/cursor.svg";
 import Letter from './pages/Letter/Letter';
 import Preloader from './atom/Preloader/Preloader';
 import Messages from './pages/Messages/Messages';
+import { getPath } from './helpers/func';
 
 
 function App() {

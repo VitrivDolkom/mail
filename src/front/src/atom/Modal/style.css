@@ -1,10 +1,9 @@
 .modal {
   background-color: var(--back);
-  width: 130px;
   position: absolute;
-  left: -298px;
+  left: -180px;
   top: 0;
-  width: 298px;
+  width: 180px;
   box-shadow: 0px 4px 32px var(--side-back);
   border-radius: 12px;
 
@@ -12,6 +11,8 @@
 
 .modal.hide {
   opacity: 0;
+  pointer-events: none;
+  cursor: default;
 }
 
 .modal.active {

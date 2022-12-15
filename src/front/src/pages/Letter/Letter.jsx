@@ -1,18 +1,31 @@
 import "./style.css";
-import { useContext } from "react";
-import MessagesContext from "../../context/MessagesContext";
+import { useContext, useState } from "react";
 import Dot from "../../atom/Dot/Dot";
-import { downloadFile, getFormattedDate, getFullName, getImageSize } from "../../helpers/func";
+import { downloadFile, getFormattedDate, getFromLocalStorage, getFullName, getImageSize } from "../../helpers/func";
 import blur from "../../img/blur.webp";
 import LoadingImage from "../../atom/LoadingImage/LoadingImage";
-import { Link } from "react-router-dom";
-import { websiteURL } from "../../helpers/constants";
-import noAva from "../../img/noAva.webp";
+
 import ImpBook from "../../atom/ImpBook/ImpBook";
+import Category from "../../atom/Category/Category";
+import Avatar from "../../atom/Avatar/Avatar";
+import { useEffect } from "react";
 
 
 const Letter = () => {
-    const { currentLetter } = useContext(MessagesContext);
+    const [letter, setLetter] = useState(JSON.parse(localStorage.getItem("letter")));
+
+    useEffect(() => {
+        const contentWrapper = document.querySelector(".wrapper");
+        const content = document.querySelector(".content");
+        let contentHeight = contentWrapper.clientHeight - 89;
+        content.style.height = `${contentHeight}px`;
+
+        window.addEventListener("resize", () => {
+            contentHeight = contentWrapper.clientHeight - 89;
+            content.style.height = `${contentHeight}px`;
+        });
+    }, []);
+
 
     const showRecieverList = (persons) => {
         let list = "";
@@ -57,56 +70,59 @@ const Letter = () => {
     return (
         <>
             {
-                currentLetter ? (<div className="letter" >
-                    < div className="top" >
-                        <h2>{currentLetter.title}</h2>
-                    </ div>
-                    <div className="info">
-                        <div className="left">
-                            <div className="ava">
-                                <Dot isReaded={currentLetter.read} />
-
-                                <img src={currentLetter.author.avatar !== undefined ? currentLetter.author.avatar : noAva} alt="ава" />
-                            </div>
-                        </div>
-                        <div className="right">
-                            <div className="who">
-                                <div className="person">{currentLetter.author.name} {currentLetter.author.surname}</div>
-                                <div className="date">{getFormattedDate(currentLetter.date, true)}</div>
-                                <ImpBook imp={currentLetter.important} book={currentLetter.bookmark} />
-                            </div>
-                            <div className="whom">
-                                Кому: Вы,{showRecieverList(currentLetter.to)}
-                                <a titl="Посмотреть всех получателей">{countOtherReciever(currentLetter.to)}</a>
-                            </div>
-                        </div>
-                    </div>
-                    {
-                        currentLetter.doc ? (
-                            <div className="files">
-                                <div className="image">
-                                    <LoadingImage
-                                        src={currentLetter.doc.img}
-                                        placeholderSrc={blur}
-                                        alt="image"
-                                    />
-                                </div>
-                                <div className="info">
-                                    <div className="file-quant">1 файл</div>
-                                    <a
-                                        onClick={() => downloadFile(currentLetter.doc.img, "image.jpg")}
-                                        className="download-files"
-                                        title="Скачать файл">Скачать </a>
-                                    <div className="files-weight">({getImageSize(currentLetter.doc.img)}Mb)</div>
+                letter.author !== undefined ?
+                    <div className="letter" >
+                        < div className="top" >
+                            <h2>{letter.title}</h2>
+                            <Category category={letter.flag} showName={true} />
+                        </ div>
+                        <div className="info">
+                            <div className="left">
+                                <div className="ava">
+                                    <Dot isReaded={letter.read} />
+                                    <Avatar ava={letter.author.avatar} />
                                 </div>
                             </div>
-                        ) : " "
-                    }
+                            <div className="right">
+                                <div className="who">
+                                    <div className="person">{letter.author.name} {letter.author.surname}</div>
+                                    <div className="date">{getFormattedDate(letter.date, true)}</div>
+                                    <ImpBook imp={letter.important} book={letter.bookmark} />
+                                </div>
+                                <div className="whom">
+                                    Кому: Вы,{showRecieverList(letter.to)}
+                                    <a title="Посмотреть всех получателей">{countOtherReciever(letter.to)}</a>
+                                </div>
+                            </div>
+                        </div>
+                        {
+                            letter.doc !== undefined ?
+                                <div className="files">
+                                    <div className="image">
+                                        <LoadingImage
+                                            src={letter.doc.img}
+                                            placeholderSrc={blur}
+                                            alt="image"
+                                        />
+                                    </div>
+                                    <div className="info">
+                                        <div className="file-quant">1 файл</div>
+                                        <a
+                                            onClick={() => downloadFile(letter.doc.img, "image.jpg")}
+                                            className="download-files"
+                                            title="Скачать файл">Скачать </a>
+                                        <div className="files-weight">({getImageSize(letter.doc.img)}Mb)</div>
+                                    </div>
+                                </div>
+                                : " "
+                        }
 
-                    <div className="content">
-                        {currentLetter.text}
-                    </div>
-                </div >) : ""
+                        <div className="content">
+                            {letter.text}
+                        </div>
+                    </div >
+                    :
+                    ""
             }
         </>
 

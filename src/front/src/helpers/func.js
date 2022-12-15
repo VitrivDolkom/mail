@@ -13,7 +13,10 @@ export const getFromLocalStorage = (key, defaultValue) => {
     if (!infoFromStorage) {
         return defaultValue;
     } else {
-        return (infoFromStorage);
+        if (typeof infoFromStorage === "object" || typeof infoFromStorage === "array") {
+            return JSON.parse(infoFromStorage);
+        }
+        return infoFromStorage;
     }
 }
 
@@ -78,4 +81,10 @@ export const getImageSize = (image) => {
     size = Math.round(size * 10) / 10;
 
     return size;
+}
+
+
+export const getPath = () => {
+    let href = window.location.href.split("/");
+    return href[href.length - 1];
 }

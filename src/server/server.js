@@ -5,8 +5,6 @@ const { sortMessages } = require("./functions");
 
 const dataBase = require("./db.json");
 const frontFolder = "../front/dist";
-const dataBaseSortedName = "dbs.json";
-let dataBaseSorted;
 let partedMessages = {
     in: { currentIndex: 0, list: [] },
     out: { currentIndex: 0, list: [] },
@@ -48,24 +46,20 @@ const setSortedMessages = () => {
                 break;
         }
     })
-
-    fs.writeFile(dataBaseSortedName, JSON.stringify(partedMessages), function (error, result) {
-        if (error) {
-            console.log("error");
-        }
-    });
-
-}
-
-if (!fs.existsSync(dataBaseSortedName)) {
-    sortMessages(dataBase);
-    setSortedMessages();
 }
 
 let isPage;
+let isSorted = false;
 
 http.createServer((req, res) => {
     isPage = false;
+
+    if (!isSorted) {
+        sortMessages(dataBase);
+        setSortedMessages();
+        isSorted = true;
+    }
+
 
     pageList.forEach(url => {
         if (url === req.url) {
@@ -127,7 +121,6 @@ function sendRes(folder, url, contentType, res) {
 const sendMessages = (res, path) => {
     console.log(path)
     path = path.split("/");
-    partedMessages = require(`./${dataBaseSortedName}`);
 
     let toSend = [];
     let fromIndex = 0;
