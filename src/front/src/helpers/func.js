@@ -13,9 +13,6 @@ export const getFromLocalStorage = (key, defaultValue) => {
     if (!infoFromStorage) {
         return defaultValue;
     } else {
-        if (typeof infoFromStorage === "object" || typeof infoFromStorage === "array") {
-            return JSON.parse(infoFromStorage);
-        }
         return infoFromStorage;
     }
 }

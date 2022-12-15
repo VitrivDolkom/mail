@@ -4,6 +4,7 @@ import Preloader from "../../atom/Preloader/Preloader";
 import { websiteURL } from "../../helpers/constants";
 import BriefMessage from "../../components/BriefMessage/BriefMessage";
 import { useNavigate } from "react-router-dom";
+import { getFromLocalStorage } from "../../helpers/func";
 
 const Messages = ({ path }) => {
     const [messages, setMessages] = useState([]);
@@ -12,8 +13,22 @@ const Messages = ({ path }) => {
     const navigate = useNavigate();
     const messagesPerScreen = Math.ceil((window.screen.availHeight - 89) / 48) + 3;
 
+
+    const getMessages = (params) => {
+        fetch(`${websiteURL}${params}`)
+            .then(raw => raw.json())
+            .then(list => {
+
+                if (params.indexOf("new") < 0 && params.indexOf("store") < 0) {
+                    setMessages(prev => [...prev, ...list]);
+                } else {
+                    setMessages(list);
+                }
+            })
+            .finally(() => setIsLoaded(true));
+    }
+
     useEffect(() => {
-        localStorage.setItem("letter", JSON.stringify({}));
         const contentWrapper = document.querySelector(".wrapper");
         const content = document.querySelector(".content");
         let contentHeight = contentWrapper.clientHeight - 89;
@@ -25,33 +40,33 @@ const Messages = ({ path }) => {
         });
 
         setIsLoaded(false);
+        if (localStorage.getItem("letter") !== "{}" && localStorage.getItem("folder") === path) {
+            getMessages(`getMessages/${path}/store`);
+        } else {
+            getMessages(`getMessages/${path}/${messagesPerScreen}/new`);
+        }
 
-        fetch(`${websiteURL}getMessages/${path}/${messagesPerScreen}/new`)
-            .then(raw => raw.json())
-            .then(list => {
-                setMessages(list);
-            })
-            .finally(() => setIsLoaded(true))
+        localStorage.setItem("letter", JSON.stringify({}));
+
 
 
         let isEndPage = false;
-        const getMessages = () => {
+        const getMoreMessages = () => {
             isEndPage = content.scrollHeight - content.clientHeight === content.scrollTop;
             if (isEndPage) {
-                fetch(`${websiteURL}getMessages/${path}/${messagesPerScreen}`)
-                    .then(raw => raw.json())
-                    .then(list => {
-                        setMessages(prev => [...prev, ...list])
-                    })
+                console.log("scrolled");
+                getMessages(`getMessages/${path}/${messagesPerScreen}`);
                 isEndPage = false;
             }
         }
 
         localStorage.setItem("folder", path);
 
-        content.addEventListener("scroll", getMessages);
+        setTimeout(() => {
+            content.addEventListener("scroll", getMoreMessages);
+        }, 200);
         return () => {
-            content.removeEventListener("scroll", getMessages);
+            content.removeEventListener("scroll", getMoreMessages);
         }
 
     }, [path]);

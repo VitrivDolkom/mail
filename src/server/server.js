@@ -5,6 +5,7 @@ const { sortMessages } = require("./functions");
 
 const dataBase = require("./db.json");
 const frontFolder = "../front/dist";
+
 let partedMessages = {
     in: { currentIndex: 0, list: [] },
     out: { currentIndex: 0, list: [] },
@@ -14,6 +15,8 @@ let partedMessages = {
     arc: { currentIndex: 0, list: [] },
     draft: { currentIndex: 0, list: [] },
 };
+
+let storedMessages = { folder: "", list: [] };
 
 const pageList = ["/in", "/out", "/imp", "/trash", "/spam", "/arc", "/draft", "/letter"];
 
@@ -119,59 +122,68 @@ function sendRes(folder, url, contentType, res) {
 }
 
 const sendMessages = (res, path) => {
-    console.log(path)
+
     path = path.split("/");
-
     let toSend = [];
-    let fromIndex = 0;
+    console.log(path);
 
-    const messageQuantity = +path[3];
+    if (path[3] === "store") {
+        toSend = storedMessages.list;
 
-    switch (path[2]) {
-        case "in":
-            toSend = partedMessages.in;
-            break;
-        case "out":
-            toSend = partedMessages.out;
-            break;
-        case "imp":
-            toSend = partedMessages.imp;
-            break;
-        case "draft":
-            toSend = partedMessages.draft;
-            break;
-        case "arc":
-            toSend = partedMessages.arc;
-            break;
-        case "spam":
-            toSend = partedMessages.spam;
-            break;
-        case "trash":
-            toSend = partedMessages.trash;
-            break;
-        default:
-            break;
-    }
-
-    Object.keys(partedMessages).forEach(key => {
-        if (partedMessages[key] !== toSend) {
-            partedMessages[key].currentIndex = 0;
-        }
-    });
-
-    fromIndex = toSend.currentIndex;
-
-    if (path[4] !== undefined) {
-        fromIndex = 0;
-        toSend.currentIndex = 20;
     } else {
-        toSend.currentIndex += messageQuantity;
-    }
+        let fromIndex = 0;
 
-    console.log(toSend.currentIndex);
+        const messageQuantity = +path[3];
+
+        switch (path[2]) {
+            case "in":
+                toSend = partedMessages.in;
+                break;
+            case "out":
+                toSend = partedMessages.out;
+                break;
+            case "imp":
+                toSend = partedMessages.imp;
+                break;
+            case "draft":
+                toSend = partedMessages.draft;
+                break;
+            case "arc":
+                toSend = partedMessages.arc;
+                break;
+            case "spam":
+                toSend = partedMessages.spam;
+                break;
+            case "trash":
+                toSend = partedMessages.trash;
+                break;
+            default:
+                break;
+        }
+
+        Object.keys(partedMessages).forEach(key => {
+            if (partedMessages[key] !== toSend) {
+                partedMessages[key].currentIndex = 0;
+            }
+        });
+
+        fromIndex = toSend.currentIndex;
+
+        if (path[4] !== undefined) {
+            storedMessages.list = [];
+            fromIndex = 0;
+            toSend.currentIndex = 20;
+        } else {
+            toSend.currentIndex += messageQuantity;
+        }
+
+        toSend = toSend.list.slice(fromIndex, fromIndex + messageQuantity);
+        storedMessages.list = [...storedMessages.list, ...toSend];
+        storedMessages.folder = path[2];
+    }
 
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.writeHead(200, { "Content-type": "application/json" });
-    res.write(JSON.stringify(toSend.list.slice(fromIndex, fromIndex + messageQuantity)));
+    res.write(JSON.stringify(toSend));
     res.end();
 }
