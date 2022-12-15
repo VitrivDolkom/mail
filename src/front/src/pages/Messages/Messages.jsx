@@ -52,9 +52,9 @@ const Messages = ({ path }) => {
 
         let isEndPage = false;
         const getMoreMessages = () => {
-            isEndPage = content.scrollHeight - content.clientHeight === content.scrollTop;
+            isEndPage = (content.scrollHeight - content.clientHeight === content.scrollTop) && content.scrollTop !== 0;
+
             if (isEndPage) {
-                console.log("scrolled");
                 getMessages(`getMessages/${path}/${messagesPerScreen}`);
                 isEndPage = false;
             }
@@ -62,9 +62,7 @@ const Messages = ({ path }) => {
 
         localStorage.setItem("folder", path);
 
-        setTimeout(() => {
-            content.addEventListener("scroll", getMoreMessages);
-        }, 200);
+        content.addEventListener("scroll", getMoreMessages);
         return () => {
             content.removeEventListener("scroll", getMoreMessages);
         }
