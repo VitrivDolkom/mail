@@ -62,7 +62,9 @@ const Messages = ({ path }) => {
 
         localStorage.setItem("folder", path);
 
+        // setTimeout(() => {
         content.addEventListener("scroll", getMoreMessages);
+        // }, 200);
         return () => {
             content.removeEventListener("scroll", getMoreMessages);
         }

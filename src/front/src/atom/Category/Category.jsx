@@ -34,7 +34,7 @@ const Category = ({ category, showName }) => {
             {category !== undefined ?
                 <div className="category">
                     <img src={determineCategory()} alt={category} />
-                    {showName ? <span>{category}</span> : ""}
+                    {showName ? <div>{category}</div> : ""}
                 </div>
                 :
                 ""}

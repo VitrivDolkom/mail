@@ -1,0 +1,19 @@
+.modal-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 12px 4px;
+  transition: all .3s linear;
+}
+
+.modal-item:hover {
+  background-color: var(--but-bor);
+}
+
+.modal-item:first-child {
+  margin-top: 0;
+}
+
+.modal-img {
+  width: 32px;
+}

@@ -29,15 +29,34 @@ export const getMonthName = (number) => {
     return monthNames[number - 1];
 }
 
-export const downloadFile = (file, fileName) => {
+export const downloadFile = (file, index) => {
+    if (typeof file !== "string") {
+        return downloadFiles(file);
+    }
+
     let anchor = document.createElement("a");
 
+    anchor = document.createElement("a");
     anchor.href = file;
-    anchor.download = "image.jpg";
+    anchor.download = `img_${index + 1}.jpg`;
     document.body.append(anchor);
     anchor.style = "display: none;";
     anchor.click();
     anchor.remove();
+}
+
+export const downloadFiles = (files) => {
+    let anchor = document.createElement("a");
+
+    files.forEach((file, index) => {
+        anchor = document.createElement("a");
+        anchor.href = file;
+        anchor.download = `img_${index + 1}.jpg`;
+        document.body.append(anchor);
+        anchor.style = "display: none;";
+        anchor.click();
+        anchor.remove();
+    })
 }
 
 export const getFormattedDate = (date, isFullDate) => {
@@ -78,6 +97,16 @@ export const getImageSize = (image) => {
     size = Math.round(size * 10) / 10;
 
     return size;
+}
+
+export const getImagesSize = (images) => {
+    let sum = 0;
+
+    images.forEach(img => {
+        sum += getImageSize(img);
+    })
+
+    return sum;
 }
 
 

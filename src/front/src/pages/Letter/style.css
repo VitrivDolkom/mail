@@ -65,19 +65,51 @@
 
 .letter .files {
   margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.letter .files span {
+  display: block;
+  margin-left: 10px;
+  font-size: 25px;
 }
 
 .files .image {
+  margin-left: 10px;
   width: 256px;
   border-radius: 12px;
   overflow: hidden;
+  position: relative;
+
+}
+
+.files .image-download {
+  width: 100%;
+  font-size: 15px;
+  z-index: 3;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: var(--text);
+  height: 44px;
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.files .image-download img {
+  width: 14px;
+  height: 14px;
+  margin-right: 9px;
 }
 
 .files .image img {
   max-width: 100%;
 }
 
-.files .info .file-quant {
+.letter .file-quant {
   color: var(--text);
 }
 

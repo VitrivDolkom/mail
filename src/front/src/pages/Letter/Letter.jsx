@@ -1,20 +1,23 @@
 import "./style.css";
-import { useContext, useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import Dot from "../../atom/Dot/Dot";
-import { downloadFile, getFormattedDate, getFromLocalStorage, getFullName, getImageSize } from "../../helpers/func";
+import { downloadFile, getFormattedDate, getFullName, getImageSize, getImagesSize } from "../../helpers/func";
 import blur from "../../img/blur.webp";
 import LoadingImage from "../../atom/LoadingImage/LoadingImage";
-
 import ImpBook from "../../atom/ImpBook/ImpBook";
 import Category from "../../atom/Category/Category";
 import Avatar from "../../atom/Avatar/Avatar";
-import { useEffect } from "react";
+import download from "../../img/download.svg";
+import downloadD from "../../img/dark/download.svg";
+import ThemeContext from "../../context/Theme";
 
 
 const Letter = () => {
-    const [letter, setLetter] = useState(JSON.parse(localStorage.getItem("letter")));
+    const [letter] = useState(JSON.parse(localStorage.getItem("letter")));
+    const { theme } = useContext(ThemeContext);
 
     useEffect(() => {
+        // console.log(letter.doc);
         const contentWrapper = document.querySelector(".wrapper");
         const content = document.querySelector(".content");
         let contentHeight = contentWrapper.clientHeight - 89;
@@ -38,15 +41,6 @@ const Letter = () => {
         return list;
     }
 
-    const showOtherReciever = (persons) => {
-        let list = "";
-        for (let i = 3; i < persons.length; ++i) {
-            list += ` ${persons[i].name} ${persons[i].surname}`;
-        }
-
-        return list;
-    }
-
     const countOtherReciever = (persons) => {
         let quantity = persons.length - 2;
         let result = "ещё ";
@@ -62,10 +56,8 @@ const Letter = () => {
             result += `${quantity} получателей`;
         }
 
-
         return result;
     }
-
 
     return (
         <>
@@ -97,24 +89,68 @@ const Letter = () => {
                         </div>
                         {
                             letter.doc !== undefined ?
-                                <div className="files">
-                                    <div className="image">
-                                        <LoadingImage
-                                            src={letter.doc.img}
-                                            placeholderSrc={blur}
-                                            alt="image"
-                                        />
+                                <>
+                                    <div className="files">
+                                        {typeof letter.doc.img === "string" ?
+                                            <div className="image">
+                                                <LoadingImage
+                                                    src={letter.doc.img}
+                                                    placeholderSrc={blur}
+                                                    alt="картинка"
+                                                />
+                                            </div>
+                                            :
+                                            letter.doc.img.map((img, index) => {
+                                                if (index < 2) {
+
+
+                                                    return (
+                                                        <div
+                                                            key={index}
+                                                            className="image">
+                                                            <LoadingImage
+                                                                src={img}
+                                                                placeholderSrc={blur}
+                                                                alt="картинка"
+                                                            />
+                                                            <div
+                                                                className="image-download"
+                                                                onClick={() => downloadFile(img, index)}>
+                                                                <img
+                                                                    src={theme === "light" ? download : downloadD}
+                                                                    alt="скачать" />
+                                                                Скачать
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                } else if (index === 2) {
+                                                    return <span key={index}>...</span>;
+                                                } else {
+                                                    return "";
+                                                }
+                                            })
+                                        }
+
                                     </div>
                                     <div className="info">
-                                        <div className="file-quant">1 файл</div>
+                                        <div className="file-quant">
+                                            {typeof letter.doc.img === "string" ? "1 файл" : `${letter.doc.img.length} файлов`}
+                                        </div>
                                         <a
-                                            onClick={() => downloadFile(letter.doc.img, "image.jpg")}
+                                            onClick={() => downloadFile(letter.doc.img, 0)}
                                             className="download-files"
-                                            title="Скачать файл">Скачать </a>
-                                        <div className="files-weight">({getImageSize(letter.doc.img)}Mb)</div>
+                                            title="Скачать файл">Скачать все файлы </a>
+                                        <div className="files-weight">({
+                                            typeof letter.doc.img === "string" ?
+                                                getImageSize(letter.doc.img)
+                                                :
+                                                getImagesSize(letter.doc.img)
+
+                                        }
+                                            Mb)</div>
                                     </div>
-                                </div>
-                                : " "
+                                </>
+                                : ""
                         }
 
                         <div className="content">

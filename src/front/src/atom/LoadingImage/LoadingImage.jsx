@@ -16,7 +16,7 @@ const LoadingImage = ({ placeholderSrc, src, ...props }) => {
         <img
             {...{ src: imgSrc, ...props }}
             alt={props.alt || ""}
-            className="image"
+            className="image-loader"
         />
     );
 }

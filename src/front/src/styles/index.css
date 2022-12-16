@@ -11,6 +11,7 @@
   --brief-dot: #A5A7AD;
   --brief-blue: #005FF9;
   --ref: #005BD1;
+  --gradient: linear-gradient(270deg, rgba(236, 237, 240, 0.95) 56.81%, rgba(236, 237, 240, 0) 104.46%);
   background-color: var(--back-app);
 
   font-family: Arial, sans-serif;
@@ -39,6 +40,7 @@
   --brief-dot: #9C9DA2;
   --brief-blue: #3C82FD;
   --ref: #589BFF;
+  --gradient: linear-gradient(270deg, rgba(44, 44, 45, 0.9) 45.32%, rgba(44, 44, 45, 0) 104.46%);
 }
 
 img {

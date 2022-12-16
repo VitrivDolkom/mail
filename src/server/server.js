@@ -125,7 +125,6 @@ const sendMessages = (res, path) => {
 
     path = path.split("/");
     let toSend = [];
-    console.log(path);
 
     if (path[3] === "store") {
         toSend = storedMessages.list;

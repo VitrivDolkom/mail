@@ -1,8 +1,10 @@
 .category {
-  padding: 7px;
+  display: flex;
+  align-items: center;
+  margin: 7px;
 }
 
-.category span {
+.category div {
   font-size: 15px;
   margin-left: 10px;
   color: var(--brief-bold);

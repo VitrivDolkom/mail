@@ -119,6 +119,7 @@
 .brief .show-doc {
   border-radius: 8px;
   padding: 7px;
+  transition: all .2s linear;
 }
 
 .brief .show-doc:hover {
