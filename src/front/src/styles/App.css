@@ -1,0 +1,38 @@
+.App {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 56px 1fr;
+  grid-template-columns: 232px 1fr;
+  row-gap: 13px;
+  background-color: var(--back-app);
+
+  grid-template-areas:
+    "navbar navbar"
+    "sidebar content";
+}
+
+body {
+  overflow: hidden;
+}
+
+.wrapper {
+  grid-area: content;
+  height: 100vh;
+}
+
+.content {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: 12px;
+}
+
+.count {
+  color: var(--text);
+}
+
+@media screen and (max-width:1000px) {
+  .App {
+
+    grid-template-columns: 65px 1fr;
+  }
+}

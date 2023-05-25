@@ -1,0 +1,53 @@
+:root {
+  --text: #2C2D2E;
+  --back: #FFFFFF;
+  --side-text: #333333;
+  --side-folder: #989999;
+  --side-back: rgba(0, 16, 61, 0.08);
+  --but-bor: rgba(0, 16, 61, 0.12);
+  --back-app: #F6F7F8;
+  --brief-bold: #2C2D2E;
+  --brief-thin: #87898F;
+  --brief-dot: #A5A7AD;
+  --brief-blue: #005FF9;
+  --ref: #005BD1;
+  --gradient: linear-gradient(270deg, rgba(236, 237, 240, 0.95) 56.81%, rgba(236, 237, 240, 0) 104.46%);
+  background-color: var(--back-app);
+
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.darkTheme {
+  --text: #E7E8EA;
+  --back: #232324;
+  --but-bor: rgba(0, 0, 0, 0.4);
+  --back-app: #19191A;
+  --side-text: #E7E8EA;
+  --side-back: rgba(255, 255, 255, 0.08);
+  --side-folder: #7C7C7E;
+  --brief-bold: #E7E8EA;
+  --brief-thin: #8C8E94;
+  --brief-dot: #9C9DA2;
+  --brief-blue: #3C82FD;
+  --ref: #589BFF;
+  --gradient: linear-gradient(270deg, rgba(44, 44, 45, 0.9) 45.32%, rgba(44, 44, 45, 0) 104.46%);
+}
+
+img {
+  color: var(--text);
+}
+
+section {
+  background-color: var(--back);
+  border-radius: 12px;
+}

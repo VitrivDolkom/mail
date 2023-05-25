@@ -1,0 +1,159 @@
+.letter {
+  background-color: var(--back);
+  padding: 16px 32px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  margin-right: 12px;
+}
+
+.letter .top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.letter .b2 {
+  margin-top: 16px;
+}
+
+.letter h2 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  color: var(--brief-bold);
+}
+
+
+.letter .whom {
+  color: var(--brief-thin);
+}
+
+.whom a {
+  text-decoration: underline;
+}
+
+.letter .imp-book {
+  margin-left: 17px;
+}
+
+
+.letter .ava {
+  margin-left: 0;
+}
+
+.date {
+  color: var(--brief-thin);
+}
+
+.letter .person {
+  color: var(--brief-bold);
+}
+
+
+.letter .content {
+  margin-top: 28px;
+  color: var(--brief-bold);
+  font-size: 15px;
+  line-height: 28px;
+}
+
+.letter .info {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.letter .files {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.letter .files span {
+  display: block;
+  margin-left: 10px;
+  font-size: 25px;
+}
+
+.files .image {
+  margin-left: 10px;
+  width: 256px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+
+}
+
+.files .image-download {
+  width: 100%;
+  font-size: 15px;
+  z-index: 3;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: var(--text);
+  height: 44px;
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.files .image-download img {
+  width: 14px;
+  height: 14px;
+  margin-right: 9px;
+}
+
+.files .image img {
+  max-width: 100%;
+}
+
+.letter .file-quant {
+  color: var(--text);
+}
+
+.download-files {
+  color: var(--ref);
+  margin-left: 14px;
+  font-size: 13px;
+}
+
+.files-weight {
+  color: var(--brief-thin);
+  margin-left: 4px;
+  font-size: 13px;
+}
+
+.download-files:hover {
+  text-decoration: underline;
+}
+
+
+.letter .info .right {
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.letter .info .who {
+  display: flex;
+}
+
+.letter .info .date {
+  margin-left: 8px;
+}
+
+.letter .info .whom {
+  margin-top: 8px;
+}
+
+
+@media screen and (max-width: 768px) {
+
+  .letter {
+    padding: 16px 20px 20px 20px;
+  }
+
+  .letter .content {}
+}
